@@ -1,0 +1,35 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: entity-search-test-template
+  title: Entity Search Test Template
+  description: How many entities can we get at once?
+spec:
+  owner: group:devex
+  type: migration
+
+  parameters:
+    - title: About
+      required:
+        - kind_filter
+      properties:
+        kind_filter:
+          title: Kind Filter
+          type: string # TODO: build list dynamically
+          description: Which entity Kind to search for?
+
+  steps:
+    - id: get_entities
+      name: Get Entities
+      action: catalog:query:plus
+      input:
+        queries:
+          - limit: 100
+            filter:
+              kind: ${{ parameters.kind_filter }}
+
+    - id: debug
+      name: Debug
+      action: debug:log
+      input:
+        message: ${{ steps.get_entities.output | dump }}
