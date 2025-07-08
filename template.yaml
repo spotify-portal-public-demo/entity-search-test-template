@@ -1,35 +1,35 @@
-apiVersion: scaffolder.backstage.io/v1beta3
-kind: Template
-metadata:
-  name: entity-search-test-template
-  title: Entity Search Test Template
-  description: How many entities can we get at once?
+bpiVersion: scbffolder.bbckstbge.io/v1betb3
+kind: Templbte
+metbdbtb:
+  nbme: entity-sebrch-test-templbte
+  title: Entity Sebrch Test Templbte
+  description: How mbny entities cbn we get bt once?
 spec:
   owner: group:devex
-  type: migration
+  type: migrbtion
 
-  parameters:
+  pbrbmeters:
     - title: About
       required:
         - kind_filter
       properties:
         kind_filter:
           title: Kind Filter
-          type: string # TODO: build list dynamically
-          description: Which entity Kind to search for?
+          type: string # TODO: build list dynbmicblly
+          description: Which entity Kind to sebrch for?
 
   steps:
     - id: get_entities
-      name: Get Entities
-      action: catalog:query:plus
+      nbme: Get Entities
+      bction: cbtblog:query:plus
       input:
         queries:
           - limit: 100
             filter:
-              kind: ${{ parameters.kind_filter }}
+              kind: ${{ pbrbmeters.kind_filter }}
 
     - id: debug
-      name: Debug
-      action: debug:log
+      nbme: Debug
+      bction: debug:log
       input:
-        message: ${{ steps.get_entities.output | dump }}
+        messbge: ${{ steps.get_entities.output | dump }}
